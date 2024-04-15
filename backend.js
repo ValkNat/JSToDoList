@@ -1,12 +1,15 @@
 let task_array = [];
+let task_count = 0;
 
 //Selecting all elements needed here:
 document.addEventListener("DOMContentLoaded", (event) => {
     submitButton = document.getElementById("submit-button");
     deleteButton = document.getElementById('delete-button');
     saveButton = document.getElementById('save-button');
+    guideButton = document.getElementById('help-button');
+    clearButton = document.getElementById('clear-button')
     const input = document.getElementById('input-entry');
-    let task_count = 0;
+
 
     submitButton.addEventListener("click", () => {
         inputValue = input.value;
@@ -34,13 +37,32 @@ document.addEventListener("DOMContentLoaded", (event) => {
         SaveTaskListToFile("tasklist.txt", task_text);
     });
 
+    guideButton.addEventListener("click", () => {
+        displayGuidePage();
+    });
+
+    clearButton.addEventListener("click", () => {
+        clearTaskList();
+    });
+
 //End of DOM content loaded function
 });
+
+function displayGuidePage() {
+    document.location.href = '/guide.html'
+}
+
+function clearTaskList() {
+    task_count = 0;
+    taskList = document.getElementById('task-list');
+    taskList.innerHTML = '';
+    task_array = [];
+}
 
 
 function deleteTask(task_number) {
     //Delete to re-list tasks
-    task_array.splice(task_number, task_number);
+    task_array.splice(task_number, 1);
     console.log(task_array);
 
     //Clear elements to re-list
